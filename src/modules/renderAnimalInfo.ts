@@ -11,15 +11,23 @@ export default function renderAnimalInfo(animal: Animal) {
     return;
   }
 
+  animalInfo.innerHTML = "";
+
+  const imageContainer = document.createElement("div");
+  imageContainer.classList.add("image-container");
+  animalInfo.appendChild(imageContainer);
+
   const image = document.createElement("img");
   image.src = `../images/${animal.imageUrl}`;
-  animalInfo.appendChild(image);
+  imageContainer.appendChild(image);
 
   const name = document.createElement("h1");
   name.innerText = `${animal.name} the ${animal.kindOfAnimal}`;
-  animalInfo.appendChild(name);
+  imageContainer.appendChild(name);
 
-  
+  const infoContainer = document.createElement("div");
+  infoContainer.classList.add("info-container");
+  animalInfo.appendChild(infoContainer);
   
   const job = document.createElement("p");
   if (animal.employmentEndDate) {
@@ -27,18 +35,32 @@ export default function renderAnimalInfo(animal: Animal) {
   } else {
     job.innerText = `${animal.job} - Currently employed`;
   }
-  animalInfo.appendChild(job);
+  infoContainer.appendChild(job);
+
+  const ageContainer = document.createElement("div");
+  ageContainer.classList.add("age-container");
+  infoContainer.appendChild(ageContainer);
+
+  const ageText = document.createElement("p");
+  ageText.classList.add("age-text");
+  ageText.innerText = `Age: `;
+  ageContainer.appendChild(ageText);
 
   const ageElement = document.createElement("p");
   const cDate = new Date();
   const cYear = cDate.getFullYear();
   const calculatedAge = cYear - Number(animal.birthYear);
-  ageElement.innerText = `Age: ${calculatedAge} years old.`;
-  animalInfo.appendChild(ageElement);
+  ageElement.innerText += `${calculatedAge} years old.`;
+  ageContainer.appendChild(ageElement);
+
 
   const skillsElement = document.createElement("ul");
   skillsElement.innerText = "Skills: ";
-  if (typeof animal.skills === "string") {
+  if (!animal.skills) {
+    const skillItem = document.createElement("li");
+    skillItem.innerText = "None";
+    skillsElement.appendChild(skillItem);
+  } else if (typeof animal.skills === "string") {
     const skillItem = document.createElement("li");
     skillItem.innerText = animal.skills;
     skillsElement.appendChild(skillItem);
@@ -49,7 +71,7 @@ export default function renderAnimalInfo(animal: Animal) {
     skillsElement.appendChild(skillItem);
   });
 }
-  animalInfo.appendChild(skillsElement);
+  infoContainer.appendChild(skillsElement);
 
 
 
