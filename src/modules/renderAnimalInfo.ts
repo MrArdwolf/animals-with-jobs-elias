@@ -18,7 +18,7 @@ export default function renderAnimalInfo(animal: Animal) {
   animalInfo.appendChild(imageContainer);
 
   const image = document.createElement("img");
-  image.src = `/images/${animal.imageUrl}`;
+  image.src = `./images/${animal.imageUrl}`;
   imageContainer.appendChild(image);
 
   const name = document.createElement("h1");
