@@ -11,7 +11,7 @@ export default function renderAnimalInfo(animal) {
     imageContainer.classList.add("image-container");
     animalInfo.appendChild(imageContainer);
     const image = document.createElement("img");
-    image.src = `../images/${animal.imageUrl}`;
+    image.src = `/images/${animal.imageUrl}`;
     imageContainer.appendChild(image);
     const name = document.createElement("h1");
     name.innerText = `${animal.name} the ${animal.kindOfAnimal}`;
